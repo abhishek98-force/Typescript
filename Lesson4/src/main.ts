@@ -67,5 +67,42 @@ const restAdd = (a:number , ...numbers : number[]): number => {
 console.log(restAdd(1,2,3,4,5));
 
 //never type 
-//never type is use
+//never type is used in functions returning error
+
+const errorFunc = (errorStr : string) => {
+    throw new Error('Error');
+}
+
+//if its an endless loop and you dont define return type it would be never
+//Therefore it is always safe to give a return type other than never except when you want the function
+//return an error
+const neverFunc = () => {
+    let i : number =1 ;
+    while(true){
+        i++;
+        if(i==100){
+            return;
+        }
+    }
+}
+
+//it is common practice to define type guards in this fashion
+const isNumber = (input : any):boolean => {
+    return typeof input === 'number';
+}
+
+const isString = (input : any):boolean => {
+    return typeof input === 'string';
+}
+
+const numberOrString = (value : (number | string)):string => {
+
+    if(isString(value)) return 'string';
+    if(isNumber(value)) return 'number';
+    return errorFunc('Error');
+
+}
+//you can use a function which return a never to close the function . does not matter the
+//return type of the error
+
 
